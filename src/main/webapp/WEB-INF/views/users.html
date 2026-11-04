@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+</head>
+<body>
+
+<h1>Список пользователей</h1>
+
+<a th:href="@{/users/new}">
+    <button type="button">Добавить пользователя</button>
+</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Возраст</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+        <form th:action="@{/users/delete}" method="post">
+            <input type="hidden" name="id" th:value="${user.id}">
+            <button type="submit">Удалить</button>
+        </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+<a th:href="@{/}">
+    <button type="button">На главную</button>
+</a>
+
+
+</body>
+</html>
