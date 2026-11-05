@@ -3,13 +3,11 @@ package org.example.controllers;
 import org.example.models.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.List;
@@ -17,34 +15,23 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
     private UserService userService;
+
     @Autowired
     private UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/check-config", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
-    public String checkConfig() {
-        return applicationContext.containsBean("getTransactionManager")
-                ? "JpaTransactionManager найден"
-                : "JpaTransactionManager НЕ найден";
-    }
-
-
 
     @GetMapping(value = "/users", produces = "text/plain;charset=UTF-8")
-    public String getUsers (Model model) {
+    public String getUsers(Model model) {
         List<User> userList = userService.showAllUsers();
         model.addAttribute("users", userList);
         return "users";
     }
 
     @GetMapping("/users/new")
-    public String newUser() {
+    public String createUser() {
         return "add-user";
     }
 
@@ -63,5 +50,21 @@ public class UserController {
         userService.removeUser(id);
 
         return "redirect:/users";
+    }
+
+    @GetMapping("users/update")
+    public String changeUser(@RequestParam("id") long id, Model model) {
+        User user = userService.getUser(id);
+        model.addAttribute("user", user);
+        return "update-user";
+    }
+
+    @PostMapping(value = "/users-update", produces = "text/plain;charset=UTF-8")
+    public String updateUser(@RequestParam("id") long id,
+                             @RequestParam("name") String name,
+                             @RequestParam("age") int age) {
+        userService.updateUser(id, name, age);
+        return "redirect:/users";
+
     }
 }

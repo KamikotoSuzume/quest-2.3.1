@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.models.User;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -40,5 +41,10 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
 
+    }
+
+    @Override
+    public User getUser(long id) {
+        return entityManager.find(User.class, id);
     }
 }

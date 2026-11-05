@@ -25,10 +25,15 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.age}"></td>
         <td>
-        <form th:action="@{/users/delete}" method="post">
-            <input type="hidden" name="id" th:value="${user.id}">
-            <button type="submit">Удалить</button>
-        </form>
+            <form th:action="@{/users/delete}" method="post">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+        <td>
+            <a th:href="@{/users/update(id=${user.id})}">
+                <button type="button">Изменить пользователя</button>
+            </a>
         </td>
     </tr>
     </tbody>
@@ -39,6 +44,7 @@
     <button type="button">На главную</button>
 </a>
 
+<img src="https://images.meme-arsenal.com/0b761291e4bf7e602821b465e2fb1b07.jpg" alt="ауф">
 
 </body>
 </html>

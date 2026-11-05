@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение пользователя</title>
+</head>
+
+<body>
+    <h2>Изменить пользователя</h2>
+<form th:action="@{/users-update}" method="post">
+
+    <input type="hidden" name="id" th:value="${user.id}">
+
+    <label>Имя:</label>
+    <input type="text" name="name" th:value="${user.name}">
+
+    <br><br>
+
+    <label>Возраст:</label>
+    <input type="number" name="age" th:value="${user.age}">
+
+    <br><br>
+
+    <button type="submit">Обновить</button>
+
+    <a th:href="@{/users}">
+        <button type="button">Отмена</button>
+    </a>
+
+</form>
+<img src="https://images.meme-arsenal.com/c9f46d78304a31095e21a3cfa1919d9f.jpg" alt="как же я устал вот эту часть делать">
+</body>
+</html>
